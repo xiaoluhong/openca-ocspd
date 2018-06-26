@@ -14,7 +14,6 @@ RUN apt update && \
 
 RUN git clone https://github.com/openca/libpki/ libpki-master && \
 	cd /libpki-master && \
-	git checkout 320e80589648f5a554304995b666de3274576176 && \
 	./configure && \
 	make && \
 	make install && \
@@ -51,5 +50,9 @@ WORKDIR /usr/local/ocspd
 ADD ./ca.xml /usr/local/ocspd/etc/ocspd/ca.d/ca.xml
 ADD ./ocspd.xml /usr/local/ocspd/etc/ocspd/ocspd.xml
 ADD ./token.xml /usr/local/ocspd/etc/ocspd/pki/token.d/token.xml
+
+VOLUME /usr/local/ocspd
+VOLUME /data/ocspd/
+EXPOSE 2560
 
 CMD ["/usr/local/ocspd/run_ocspd.sh"]
